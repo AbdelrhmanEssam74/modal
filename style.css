@@ -1,123 +1,74 @@
-* {
-  margin: 0;
-  box-sizing: border-box;
-}
-.modal {
-  display: block;
-  position: fixed;
-  z-index: 1;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  overflow: auto;
-  background-color: rgba(0, 0, 0, 0.4);
+#myModal {
+  @apply flex items-center justify-center fixed z-50 top-0 left-0 w-full h-full bg-black bg-opacity-50;
 }
 
-.modal-content {
-  background-color: #333;
-  margin: 5px auto;
-  padding: 10px;
-  border-radius: 5px;
-  border: 1px solid #888;
-  width: 41%;
-  color: var(--light1, #fafafa);
-  z-index: 1001;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2), 5px 5px 10px rgba(0, 0, 0, 0.19);
-  max-height: 100vh;
-  overflow-y: auto;
-  font-family: sans-serif;
+#myModal main {
+  @apply relative bg-[#333] px-5 py-5 vsm:py-0 text-left text-white shadow-2xl rounded-lg transition-all m-5 sm:w-3/4 md:max-w-[640px] max-h-[500px] overflow-scroll tiny:max-h-none;
+
 }
-.modal-header {
-  font-size: 3em;
-  font-weight: normal;
+
+#myModal main>div:nth-child(1) {
+  @apply text-left mb-5;
 }
-.modal-content .modal-disc {
-  text-align: left;
-  margin-top: 0.7em;
-  line-height: 1.3;
+
+#myModal main>div:nth-child(1) span {
+  @apply absolute right-3 top-3 cursor-pointer font-light text-4xl hover:text-primaryColor;
 }
+
+#myModal main>div:nth-child(1) h2 {
+  @apply p-0 mt-5 text-left text-2xl tiny:text-3xl sm:text-5xl font-medium mb-2 max-w-[420px];
+}
+
+#myModal main>div:nth-child(2) li {
+  @apply flex gap-2 mb-4
+}
+
+.toggle-description {
+  @apply text-xs tiny:text-sm text-[#bbbbbb] py-2
+}
+
+#myModal main>div:nth-child(3) {
+  @apply flex flex-row-reverse tiny:flex-col tiny:justify-end items-center tiny:items-end gap-2;
+}
+
+#myModal main>div:nth-child(3) button {
+  @apply bg-primaryColor/85 hover:bg-primaryColor/60 text-white p-2 rounded;
+}
+
+#myModal main>div:nth-child(3) a {
+  @apply text-sm text-[#5c5c5c] hover:text-primaryColor/50;
+}
+
 .modal-link {
-  color: #6b4755;
+  @apply text-primaryColor
 }
-.close {
-  color: #aaa;
-  float: right;
-  font-size: 28px;
-  font-weight: bold;
-  cursor: pointer;
+
+/* Custom Toggle */
+.toggle-switch, .disabled-toggle {
+  @apply relative inline-block w-10 h-6 shadow-xl
 }
-.close:hover {
-  color: #eeeeee;
-}
-.center-modal {
-  position: relative;
-  margin-top: 1em;
-}
-.center-modal::before {
-  content: "";
-  display: block;
-  width: 100%;
-  left: 0;
-  height: 1px;
-  background-color: #5c5c5c;
-}
-.center-modal::after {
-  content: "";
-  display: block;
-  width: 100%;
-  left: 0;
-  height: 1px;
-  background-color: #5c5c5c;
-  margin-top: 15px;
-}
-.center-modal ul {
-  list-style: none;
-  padding: 0;
-}
-.center-modal ul li {
-  margin-top: 1em;
-  display: flex;
-  align-items: flex-start;
-  gap: 10px;
-}
-.toggle-container {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-.toggle-switch {
-  position: relative;
-  display: inline-block;
-  width: 40px;
-  height: 20px;
-}
+
 .toggle-switch input {
-  opacity: 0;
-  width: 0;
-  height: 0;
+  @apply hidden;
 }
+
 .toggle-helper {
   color: #5c5c5c;
   padding-left: 0.2em;
   font-size: 0.8em;
 }
+
 .extra-toggle {
   display: flex;
   align-items: baseline;
   margin-top: 10px;
   gap: 10px;
 }
-.disabled-toggle {
-  position: relative;
-  display: inline-block;
-  width: 40px;
-  height: 20px;
-  cursor: not-allowed;
-}
+
 .disabled-toggle .slider {
   cursor: not-allowed;
 }
+
 .slider {
   position: absolute;
   cursor: pointer;
@@ -129,86 +80,31 @@
   border-radius: 20px;
   transition: 0.4s;
 }
+
 .slider:before {
   position: absolute;
   content: "";
-  height: 14px;
-  width: 14px;
+  height: 16px;
+  width: 16px;
   left: 3px;
-  bottom: 3px;
+  bottom: 4px;
   background-color: white;
   border-radius: 50%;
   transition: 0.4s;
 }
+
 .disabled-toggle .slider {
-  background-color: #9b7785;
-}
-.disabled-toggle .slider:before {
-  transform: translateX(20px);
-}
-input:checked + .slider {
-  background-color: #6b4755;
-}
-input:checked + .slider:before {
-  transform: translateX(20px);
-}
-.toggle-text {
-  font-size: 1em;
-}
-.toggle-description {
-  margin-top: 0.5em;
-  font-size: 0.9em;
-  line-height: 1.5;
-  color: #5c5c5c;
-}
-.footer-modal {
-  padding: 10px 0px;
+  @apply bg-primaryColor/50
 }
 
-.footer-buttons {
-  display: flex;
-  justify-content: flex-end; /* Align button to the right */
+input:checked+.slider:before, .disabled-toggle .slider:before {
+  transform: translateX(16px);
 }
 
-.save-button {
-  background-color: #6b4755;
-  color: white;
-  border: none;
-  padding: 6px 12px;
-  font-size: 1rem;
+input:checked+.slider {
+  @apply bg-primaryColor/85
+}
+
+.openModalButton {
   cursor: pointer;
-  border-radius: 5px;
-  transition: background-color 0.3s ease;
-}
-
-.save-button:hover {
-  background-color: #9b7785;
-}
-
-.footer-modal .modal-link a {
-  margin-top: 12px;
-  color: #5c5c5c;
-  font-size: 13px;
-  text-decoration: none;
-  float: right;
-}
-
-.modal-link a:hover {
-  text-decoration: underline;
-}
-
-@media (max-width: 971px) {
-  .modal-content {
-    width: 90%;
-    padding: 15px;
-  }
-  .modal-header {
-    font-size: 2em;
-  }
-  .toggle-text {
-    font-size: 1em;
-  }
-  .toggle-description {
-    font-size: 0.8em;
-  }
 }
